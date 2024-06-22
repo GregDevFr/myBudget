@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <h2 class="text-title-md2 font-bold text-black dark:text-white">
+                    Catégories
+                </h2>
+
+                <nav>
+                    <ol class="flex items-center gap-2">
+                        <li>
+                            <a class="font-medium" href="{{ path('app_home') }}">Tableau de bord /</a>
+                        </li>
+                        <li class="font-medium text-primary">Catégories</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+                <div class="max-w-full overflow-x-auto">
+                    <table class="w-full table-auto">
+                        <thead>
+                        <tr class="bg-gray-2 text-left dark:bg-meta-4">
+                            <th class="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
+                                Libellé
+                            </th>
+                            <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
+                                Type
+                            </th>
+                            <th class="px-4 py-4 font-medium text-black dark:text-white flex sm:items-center sm:justify-between">
+                                Actions
+                                <a href="{{ path('app_category_add') }}">
+                                    {{ ux_icon('mdi:add-bold', {
+                                        'class': "fill-current rounded border bg-white",
+                                        'width': "18",
+                                        'height': "18"
+                                    }) }}
+                                </a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for category in categories %}
+                            <tr>
+                                <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
+                                    <h5 class="font-medium text-black dark:text-white">{{ category.name }}</h5>
+                                </td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                    {% if category.type is same as 0 %}
+                                        <p class="inline-flex rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger">
+                                            Dépense
+                                        </p>
+                                    {% else %}
+                                        <p class="inline-flex rounded-full bg-success bg-opacity-10 px-3 py-1 text-sm font-medium text-success">
+                                            Revenu
+                                        </p>
+                                    {% endif %}
+                                </td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                    <div class="flex items-center space-x-3.5">
+                                        <a
+                                            href="{{ path('app_category_edit', { 'category': category.id }) }}"
+                                            class="hover:text-primary">
+                                            {{ ux_icon('iconamoon:edit-light', {
+                                                'class': "fill-current",
+                                                'width': "18",
+                                                'height': "18"
+                                            }) }}
+                                        </a>
+                                        <a
+                                            href="{{ path('app_category_delete', {'category': category.id}) }}"
+                                            class="hover:text-primary">
+                                            {{ ux_icon('octicon:trash-24', {
+                                                'class': "fill-current",
+                                                'width': "18",
+                                                'height': "18"
+                                            }) }}
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}

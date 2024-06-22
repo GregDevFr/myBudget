@@ -56,11 +56,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Category::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $categories;
 
+    /**
+     * @var Collection<int, Transaction>
+     */
+    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'user')]
+    private Collection $transactions;
+
+    /**
+     * @var Collection<int, MonthlyBudget>
+     */
+    #[ORM\OneToMany(targetEntity: MonthlyBudget::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $monthlyBudgets;
+
     public function __construct()
     {
         $this->setCreatedAt(new \DateTimeImmutable());
         $this->setUpdatedAt(new \DateTimeImmutable());
         $this->categories = new ArrayCollection();
+        $this->transactions = new ArrayCollection();
+        $this->monthlyBudgets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,6 +236,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($category->getUser() === $this) {
                 $category->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Transaction>
+     */
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransaction(Transaction $transaction): static
+    {
+        if (!$this->transactions->contains($transaction)) {
+            $this->transactions->add($transaction);
+            $transaction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransaction(Transaction $transaction): static
+    {
+        if ($this->transactions->removeElement($transaction)) {
+            // set the owning side to null (unless already changed)
+            if ($transaction->getUser() === $this) {
+                $transaction->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MonthlyBudget>
+     */
+    public function getMonthlyBudgets(): Collection
+    {
+        return $this->monthlyBudgets;
+    }
+
+    public function addMonthlyBudget(MonthlyBudget $monthlyBudget): static
+    {
+        if (!$this->monthlyBudgets->contains($monthlyBudget)) {
+            $this->monthlyBudgets->add($monthlyBudget);
+            $monthlyBudget->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMonthlyBudget(MonthlyBudget $monthlyBudget): static
+    {
+        if ($this->monthlyBudgets->removeElement($monthlyBudget)) {
+            // set the owning side to null (unless already changed)
+            if ($monthlyBudget->getUser() === $this) {
+                $monthlyBudget->setUser(null);
             }
         }
 

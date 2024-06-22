@@ -14,8 +14,22 @@
         {% endblock %}
     </head>
     <body>
-        <main class="container">
-            {% block body %}{% endblock %}
-        </main>
+
+    <section class="flex h-screen overflow-hidden">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% include 'partials/_aside.html.twig' %}
+        <!-- ===== Content Area Start ===== -->
+            <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+            {% include 'partials/_header.html.twig' %}
+        {% endif %}
+
+        {% block body %}{% endblock %}
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            </div>
+        {% endif %}
+        <!-- ===== Content Area End ===== -->
+    </section>
+    <script defer src="{{ asset('js/bundle.js') }}"></script>
     </body>
 </html>
