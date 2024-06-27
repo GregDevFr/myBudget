@@ -122,8 +122,6 @@
                         <a
                                 class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                                 href="{{ path('app_home') }}"
-                                @click="selected = (selected === 'Calendar' ? '':'Calendar')"
-                                :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'calendar') }"
                         >
                             {{ ux_icon('material-symbols:home-outline', {
                                 'class': 'fill-current',
@@ -160,8 +158,6 @@
                         <a
                                 class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
                                 href="{{ path('app_category') }}"
-                                @click="selected = (selected === 'Calendar' ? '':'Calendar')"
-                                :class="{ 'bg-graydark dark:bg-meta-4': (selected === 'Calendar') && (page === 'calendar') }"
                         >
                             {{ ux_icon('mdi:tag-outline', {
                                 'class': 'fill-current',
@@ -173,6 +169,23 @@
                         </a>
                     </li>
                     <!-- Menu Item Category -->
+
+                    <!-- Menu Item Thirdparty -->
+                    <li>
+                        <a
+                                class="group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+                                href="{{ path('app_thirdparty_index') }}"
+                        >
+                            {{ ux_icon('mdi:company', {
+                                'class': 'fill-current',
+                                'width': "18",
+                                'height': "18"
+                            }) }}
+
+                            Tiers
+                        </a>
+                    </li>
+                    <!-- Menu Item Thirdparty -->
 
                 </ul>
             </div>

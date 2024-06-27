@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Categories{% endblock %}
+{% block title %}Thirdparty index{% endblock %}
 
 {% block body %}
+
     <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <h2 class="text-title-md2 font-bold text-black dark:text-white">
-                    Catégories
+                    Tiers
                 </h2>
 
                 <nav>
@@ -15,7 +16,7 @@
                         <li>
                             <a class="font-medium" href="{{ path('app_home') }}">Tableau de bord /</a>
                         </li>
-                        <li class="font-medium text-primary">Catégories</li>
+                        <li class="font-medium text-primary">Tiers</li>
                     </ol>
                 </nav>
             </div>
@@ -26,14 +27,14 @@
                         <thead>
                         <tr class="bg-gray-2 text-left dark:bg-meta-4">
                             <th class="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white xl:pl-11">
-                                Libellé
+                                Nom
                             </th>
                             <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">
                                 Type
                             </th>
                             <th class="px-4 py-4 font-medium text-black dark:text-white flex sm:items-center sm:justify-between">
                                 Actions
-                                <a href="{{ path('app_category_add') }}">
+                                <a href="{{ path('app_thirdparty_new') }}">
                                     {{ ux_icon('mdi:add-bold', {
                                         'class': "fill-current rounded border bg-white",
                                         'width': "18",
@@ -45,26 +46,16 @@
                         </thead>
                         <tbody>
 
-                        {% for category in categories %}
+                        {% for thirdparty in thirdparties %}
                             <tr>
                                 <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
-                                    <h5 class="font-medium text-black dark:text-white">{{ category.name }}</h5>
+                                    <h5 class="font-medium text-black dark:text-white">{{ thirdparty.name }}</h5>
                                 </td>
-                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                    {% if category.type is same as 0 %}
-                                        <p class="inline-flex rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger">
-                                            Dépense
-                                        </p>
-                                    {% else %}
-                                        <p class="inline-flex rounded-full bg-success bg-opacity-10 px-3 py-1 text-sm font-medium text-success">
-                                            Revenu
-                                        </p>
-                                    {% endif %}
-                                </td>
-                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ thirdparty.typeText }}</td>
+                                <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                                     <div class="flex items-center space-x-3.5">
                                         <a
-                                            href="{{ path('app_category_edit', { 'category': category.id }) }}"
+                                            href="{{ path('app_thirdparty_edit', {'id': thirdparty.id}) }}"
                                             class="hover:text-primary">
                                             {{ ux_icon('iconamoon:edit-light', {
                                                 'class': "fill-current",
@@ -74,12 +65,16 @@
                                         </a>
                                         {% include("partials/_delete_form.html.twig")
                                             with {
-                                            'objectId': category.id,
-                                            'route': path('app_category_delete', {'category': category.id}),
+                                            'objectId': thirdparty.id,
+                                            'route': path('app_thirdparty_delete', {'id': thirdparty.id}),
                                         }
                                         %}
                                     </div>
                                 </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="py-5 text-center">no records found</td>
                             </tr>
                         {% endfor %}
 

@@ -24,6 +24,13 @@ class Thirdparty
     #[ORM\ManyToOne]
     private ?User $user = null;
 
+    private const PERSON = 0;
+    private const COMPANY = 1;
+    public const THIRDPARTY_TYPES = [
+        self::PERSON => 'Personne',
+        self::COMPANY => 'Entreprise',
+    ];
+
     /**
      * @var Collection<int, Transaction>
      */
@@ -55,6 +62,11 @@ class Thirdparty
     public function getType(): ?int
     {
         return $this->type;
+    }
+
+    public function getTypeText(): string
+    {
+        return self::THIRDPARTY_TYPES[$this->getType()];
     }
 
     public function setType(int $type): static
