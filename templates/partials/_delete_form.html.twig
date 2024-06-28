@@ -1,7 +1,7 @@
 {% if objectId is defined and route is defined %}
     <form method="post" action="{{ route }}" onsubmit="return confirm('Etes vous sûr de vouloir supprimer cet élément ?');">
         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ objectId) }}">
-        <button class="btn">
+        <button class="btn hover:text-primary">
             {{ ux_icon('octicon:trash-24', {
                 'class': "fill-current",
                 'width': "18",

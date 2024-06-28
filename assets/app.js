@@ -8,4 +8,10 @@ import './bootstrap.js';
 // import './styles/satoshi.css';
 import './styles/app.css';
 
+import Alpine from 'alpinejs'
+
+window.Alpine = Alpine
+
+Alpine.start()
+
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
